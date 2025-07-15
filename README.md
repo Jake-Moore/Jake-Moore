@@ -3,7 +3,7 @@
   <img src="https://komarev.com/ghpvc/?username=Jake-Moore&label=Profile%20views&color=c464ed&style=flat" align="right">
 </h3>
 
-I'm a Java developer (favorite language) with some experience in Sys. Admin and Linux systems. 
+I'm a Software developer with some experience in Sys. Admin and Linux systems. 
 I enjoy developing scalable minecraft servers and learning how to use new technologies.
 
 ### 📚 My Techstack
