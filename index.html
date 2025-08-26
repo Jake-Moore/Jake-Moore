@@ -373,25 +373,35 @@
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
-        /* Toast Notification */
-        .toast {
+        /* Toast Container */
+        .toast-container {
             position: fixed;
             top: 20px;
             right: 20px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 350px;
+        }
+
+        /* Toast Notification */
+        .toast {
             background: white;
             color: #333;
             padding: 16px 24px;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             border-left: 4px solid #10b981;
-            z-index: 1001;
             transform: translateX(400px);
-            transition: transform 0.3s ease;
-            max-width: 300px;
+            transition: all 0.3s ease;
+            max-width: 100%;
+            opacity: 0;
+            animation: slideIn 0.3s ease forwards;
         }
 
-        .toast.show {
-            transform: translateX(0);
+        .toast.removing {
+            animation: slideOut 0.3s ease forwards;
         }
 
         .toast.success {
@@ -401,6 +411,28 @@
         .toast .toast-icon {
             margin-right: 8px;
             color: #10b981;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
         }
 
         /* Responsive Design */
@@ -744,6 +776,10 @@
                     <span>📧</span>
                     Email
                 </button>
+                <button class="contact-link" id="discordButton" style="cursor: pointer; border: none; font-family: inherit;">
+                    <span>💬</span>
+                    Discord
+                </button>
             </div>
         </div>
     </section>
@@ -757,11 +793,8 @@
         </svg>
     </button>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">
-        <span class="toast-icon">✓</span>
-        <span>Email copied to clipboard!</span>
-    </div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
 <script>
     // Theme Toggle Functionality
@@ -837,32 +870,72 @@
         }
     });
 
-    // Email Copy Functionality
+    // Contact Copy Functionality
     const emailButton = document.getElementById('emailButton');
-    const toast = document.getElementById('toast');
+    const discordButton = document.getElementById('discordButton');
+    const toastContainer = document.getElementById('toastContainer');
 
-    function showToast() {
-        toast.classList.add('show');
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
+    // Toast management system
+    let toastCounter = 0;
+
+    function createToast(message) {
+        const toastId = `toast-${toastCounter++}`;
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.id = toastId;
+        toast.innerHTML = `
+            <span class="toast-icon">✓</span>
+            <span>${message}</span>
+        `;
+
+        // Add to container
+        toastContainer.appendChild(toast);
+
+        // Remove toast after animation completes
+        const removeToast = () => {
+            toast.classList.add('removing');
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 300);
+        };
+
+        // Auto-remove after 3 seconds
+        const timeoutId = setTimeout(removeToast, 2000);
+
+        // Store timeout ID for cleanup
+        toast.dataset.timeoutId = timeoutId;
+
+        return toast;
     }
 
-    async function copyEmailToClipboard() {
-        const email = 'contact@jake-moore.dev';
+    function showToast(message) {
+        createToast(message);
+    }
+
+    async function copyToClipboard(text, message) {
         try {
-            await navigator.clipboard.writeText(email);
-            showToast();
+            await navigator.clipboard.writeText(text);
+            showToast(message);
         } catch (err) {
             // Fallback for older browsers
             const textArea = document.createElement('textarea');
-            textArea.value = email;
+            textArea.value = text;
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
-            showToast();
+            showToast(message);
         }
+    }
+
+    async function copyEmailToClipboard() {
+        await copyToClipboard('contact@jake-moore.dev', 'Email copied to clipboard!');
+    }
+
+    async function copyDiscordToClipboard() {
+        await copyToClipboard('kamikazejam', 'Discord username copied to clipboard!');
     }
 
     emailButton.addEventListener('click', copyEmailToClipboard);
@@ -870,6 +943,14 @@
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             copyEmailToClipboard();
+        }
+    });
+
+    discordButton.addEventListener('click', copyDiscordToClipboard);
+    discordButton.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            copyDiscordToClipboard();
         }
     });
 
