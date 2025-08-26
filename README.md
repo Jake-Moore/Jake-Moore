@@ -3,10 +3,11 @@
   <img src="https://komarev.com/ghpvc/?username=Jake-Moore&label=Profile%20views&color=c464ed&style=flat" align="right">
 </h3>
 
-I'm a Software developer with some experience in Sys. Admin and Linux systems. 
+I'm a Software developer with some experience in Sys. Admin and Linux systems.
 I enjoy developing scalable minecraft servers and learning how to use new technologies.
 
 ### 📚 My Techstack
+![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
