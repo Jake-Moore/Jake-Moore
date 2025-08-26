@@ -373,6 +373,36 @@
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #333;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-left: 4px solid #10b981;
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left-color: #10b981;
+        }
+
+        .toast .toast-icon {
+            margin-right: 8px;
+            color: #10b981;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero {
@@ -710,18 +740,28 @@
                     <img src="images/github-mark.png" alt="GitHub" class="github-icon">
                     GitHub
                 </a>
+                <button class="contact-link" id="emailButton" style="cursor: pointer; border: none; font-family: inherit;">
+                    <span>📧</span>
+                    Email
+                </button>
             </div>
         </div>
     </section>
 </div>
 
-<!-- Theme Toggle Button -->
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" id="toggleIcon">
-        <!-- Moon icon (default for light mode) -->
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/>
-    </svg>
-</button>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" id="toggleIcon">
+            <!-- Moon icon (default for light mode) -->
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span class="toast-icon">✓</span>
+        <span>Email copied to clipboard!</span>
+    </div>
 
 <script>
     // Theme Toggle Functionality
@@ -794,6 +834,42 @@
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             toggleTheme();
+        }
+    });
+
+    // Email Copy Functionality
+    const emailButton = document.getElementById('emailButton');
+    const toast = document.getElementById('toast');
+
+    function showToast() {
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    async function copyEmailToClipboard() {
+        const email = 'contact@jake-moore.dev';
+        try {
+            await navigator.clipboard.writeText(email);
+            showToast();
+        } catch (err) {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = email;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showToast();
+        }
+    }
+
+    emailButton.addEventListener('click', copyEmailToClipboard);
+    emailButton.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            copyEmailToClipboard();
         }
     });
 
