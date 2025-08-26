@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake Moore - Software Developer</title>
+    <style>
+        /* CSS Variables for Light/Dark Theme */
+        :root {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: white;
+            --bg-tertiary: #f8f9fa;
+            --text-primary: #333;
+            --text-secondary: #6c757d;
+            --text-accent: #2c3e50;
+            --border-color: #e9ecef;
+            --border-accent: #3498db;
+            --hover-bg: #e9ecef;
+            --shadow: rgba(0,0,0,0.1);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #242424;
+            --bg-secondary: #363636;
+            --bg-tertiary: #484848;
+            --text-primary: #e5e5e5;
+            --text-secondary: #b0b0b0;
+            --text-accent: #8bb8e8;
+            --border-color: #505050;
+            --border-accent: #6ba3d6;
+            --hover-bg: #505050;
+            --shadow: rgba(0,0,0,0.4);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .container { 
+            max-width: 1200px; 
+            width: 100%;
+            margin: 0 auto; 
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            text-align: center;
+            padding: 60px 20px 40px;
+            margin-bottom: 60px;
+            position: relative;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 20px var(--shadow);
+            border: 1px solid var(--border-color);
+            border-top: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: var(--text-accent);
+            position: relative;
+        }
+
+        .hero h1::after {
+            content: '';
+            display: block;
+            width: 200px;
+            height: 3px;
+            background: var(--gradient-primary);
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            margin-bottom: 0;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Section Headers */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            color: var(--text-accent);
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 3px;
+            background: var(--gradient-primary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+
+        .project-card.featured::before {
+            background: var(--gradient-secondary);
+        }
+
+        /* Center the third project card */
+        .project-card:nth-child(3) {
+            grid-column: 1 / -1;
+            max-width: 50%;
+            margin: 0 auto;
+        }
+
+        .project-card h3 {
+            color: var(--text-accent);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .github-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+
+        .project-link:hover {
+            background: var(--hover-bg);
+            transform: translateY(-2px);
+        }
+
+        /* Project Tags */
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 500;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-transform: lowercase;
+            letter-spacing: 0.3px;
+            transition: all 0.2s ease;
+            line-height: 1.2;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .tech-category {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .tech-category h3 {
+            color: var(--text-accent);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            font-size: 0;
+        }
+
+        .tech-badge img {
+            height: 28px;
+            border-radius: 4px;
+            transition: transform 0.2s ease;
+        }
+
+        .tech-badge:hover img {
+            transform: scale(1.1);
+        }
+
+        /* GitHub Stats */
+        .github-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .stat-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-secondary);
+            box-shadow: 0 4px 20px var(--shadow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px var(--shadow);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact h2 {
+            margin-bottom: 20px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 20px 30px;
+                margin-bottom: 40px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            /* Reset third card styling on mobile */
+            .project-card:nth-child(3) {
+                grid-column: auto;
+                max-width: none;
+                margin: 0;
+            }
+
+            .project-card {
+                padding: 20px;
+            }
+
+            /* Disable hover effects on mobile */
+            .project-card:hover {
+                transform: none;
+                box-shadow: 0 10px 30px var(--shadow);
+            }
+
+            .project-link:hover {
+                transform: none;
+                background: var(--bg-tertiary);
+            }
+
+            .tech-badge:hover img {
+                transform: none;
+            }
+
+            .contact-link:hover {
+                transform: none;
+                box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            }
+
+            .theme-toggle:hover {
+                transform: none;
+                box-shadow: 0 4px 20px var(--shadow);
+            }
+
+            /* Fix title line breaking */
+            .hero h1 {
+                font-size: clamp(1.8rem, 6vw, 3.2rem);
+                white-space: nowrap;
+            }
+
+            .tech-stack {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contact {
+                padding: 30px 20px;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .theme-toggle {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+        /* Smooth transitions */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
+    <script>
+        // Apply saved theme immediately to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+</head>
+<body>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>👋 Hi, I'm Jake Moore</h1>
+        <p>Software developer with experience in System Administration and Linux systems. I enjoy developing scalable
+            Minecraft servers and learning new technologies.</p>
+    </div>
+</section>
+
+<div class="container">
+    <!-- Featured Projects Section -->
+    <section class="section">
+        <h2>🚀 Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card featured">
+                <h3>⚡ KamiCommon</h3>
+                <div class="project-tags">
+                    <span class="project-tag">java</span>
+                    <span class="project-tag">paper</span>
+                </div>
+                <p>Core utility library for Paper plugin development. A comprehensive toolkit that provides common
+                    functionality and utilities for Minecraft server plugin developers.</p>
+                <div class="project-links">
+                    <a href="https://github.com/Jake-Moore/KamiCommon" class="project-link" target="_blank"
+                       rel="noopener noreferrer">
+                        <img src="images/github-mark.png" alt="GitHub" class="github-icon">
+                        GitHub
+                    </a>
+                    <a href="https://docs.jake-moore.dev/KamiCommon/" class="project-link" target="_blank"
+                       rel="noopener noreferrer">
+                        <span>📚</span> Javadocs
+                    </a>
+                    <a href="https://github.com/Jake-Moore/KamiCommon/wiki" class="project-link" target="_blank"
+                       rel="noopener noreferrer">
+                        <span>📖</span> Wiki
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>📚 KamiCommon NMS</h3>
+                <div class="project-tags">
+                    <span class="project-tag">java</span>
+                    <span class="project-tag">paper</span>
+                    <span class="project-tag">nms</span>
+                </div>
+                <p>NMS abstraction layer for Paper plugins to support multiple Minecraft versions. Simplifies version
+                    compatibility for server plugin development.</p>
+                <div class="project-links">
+                    <a href="https://github.com/Jake-Moore/KamiCommonNMS" class="project-link" target="_blank"
+                       rel="noopener noreferrer">
+                        <img src="images/github-mark.png" alt="GitHub" class="github-icon">
+                        GitHub
+                    </a>
+                    <a href="https://docs.jake-moore.dev/KamiCommonNMS/" class="project-link" target="_blank"
+                       rel="noopener noreferrer">
+                        <span>📚</span> Javadocs
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>🚀 DataKache [WIP]</h3>
+                <div class="project-tags">
+                    <span class="project-tag">kotlin</span>
+                    <span class="project-tag">mongodb</span>
+                    <span class="project-tag">cache</span>
+                    <span class="project-tag">odm</span>
+                </div>
+                <p>A Kotlin-first data library with multi-backend support, in-memory caching, and thread-safe updates
+                    for Serializable data in multiple environments.</p>
+                <div class="project-links">
+                    <a href="https://github.com/Jake-Moore/DataKache" class="project-link" target="_blank"
+                       rel="noopener noreferrer">
+                        <img src="images/github-mark.png" alt="GitHub" class="github-icon">
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="section">
+        <h2>📚 My Tech Stack</h2>
+        <div class="tech-stack">
+            <div class="tech-category">
+                <h3>💻 Languages</h3>
+                <div class="tech-badges">
+                        <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white"
+                                 alt="Kotlin">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white"
+                                 alt="Java">
+                        </span>
+                    <span class="tech-badge">
+                             <img src="https://img.shields.io/badge/yaml-%23ffffff.svg?style=for-the-badge&logo=yaml&logoColor=151515"
+                                  alt="YAML">
+                         </span>
+                    <span class="tech-badge">
+                             <img src="https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white"
+                                  alt="JSON">
+                         </span>
+                    <span class="tech-badge">
+                             <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"
+                                  alt="Python">
+                         </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"
+                                 alt="HTML5">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"
+                                 alt="CSS3">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"
+                                 alt="JavaScript">
+                        </span>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h3>🗄️ Databases</h3>
+                <div class="tech-badges">
+                        <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"
+                                 alt="MongoDB">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white"
+                                 alt="Redis">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white"
+                                 alt="MySQL">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white"
+                                 alt="MariaDB">
+                        </span>
+                    <span class="tech-badge">
+                             <img src="https://img.shields.io/badge/rabbitmq-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white"
+                                  alt="AMQP">
+                         </span>
+                    <span class="tech-badge">
+                             <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white"
+                                  alt="PostgreSQL">
+                         </span>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h3>🛠️ Development Tools</h3>
+                <div class="tech-badges">
+                        <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white"
+                                 alt="IntelliJ IDEA">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white"
+                                 alt="Git">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"
+                                 alt="GitHub">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white"
+                                 alt="Gradle">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white"
+                                 alt="Maven">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white"
+                                 alt="Docker">
+                        </span>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h3>🔧 DevOps & Infra</h3>
+                <div class="tech-badges">
+                        <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white"
+                                 alt="Nginx">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white"
+                                 alt="Ubuntu">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white"
+                                 alt="Cloudflare">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/grafana-%23F46800.svg?style=for-the-badge&logo=grafana&logoColor=white"
+                                 alt="Grafana">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/SSH-4D4D4D?style=for-the-badge&logo=gnubash&logoColor=white"
+                                 alt="SSH">
+                        </span>
+                    <span class="tech-badge">
+                            <img src="https://img.shields.io/badge/Let's%20Encrypt-003A70?style=for-the-badge&logo=letsencrypt&logoColor=white"
+                                 alt="Let's Encrypt">
+                        </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Statistics Section -->
+    <section class="section">
+        <h2>🔢 GitHub Statistics</h2>
+        <div class="github-stats">
+            <div class="stat-card">
+                <img id="github-stats-img"
+                     src="https://gh-stats.jake-moore.luxiouslabs.net/api?username=Jake-Moore&show_icons=true&theme=dark&hide_rank=true&hide_border=true&bg_color=00000000"
+                     alt="GitHub Stats" loading="lazy">
+            </div>
+            <div class="stat-card">
+                <img id="github-langs-img"
+                     src="https://gh-stats.jake-moore.luxiouslabs.net/api/top-langs/?username=Jake-Moore&hide=lua&layout=compact&theme=dark&hide_border=true&bg_color=00000000"
+                     alt="Top Languages" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="contact">
+            <h2>🤝 Let's Connect</h2>
+            <p>Interested in collaborating or have questions about my projects? Feel free to reach out!</p>
+            <div class="contact-links">
+                <a href="https://github.com/Jake-Moore" class="contact-link" target="_blank" rel="noopener noreferrer">
+                    <img src="images/github-mark.png" alt="GitHub" class="github-icon">
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Theme Toggle Button -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" id="toggleIcon">
+        <!-- Moon icon (default for light mode) -->
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/>
+    </svg>
+</button>
+
+<script>
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+
+    // Get the theme that was already applied in the head
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+
+    // Update toggle button icon based on current theme
+    function updateToggleIcon(theme) {
+        const toggleIcon = document.getElementById('toggleIcon');
+        if (theme === 'dark') {
+            // Sun icon for dark mode
+            toggleIcon.innerHTML = '<circle cx="12" cy="12" r="5" fill="currentColor"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>';
+        } else {
+            // Moon icon for light mode
+            toggleIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/>';
+        }
+    }
+
+    // Update GitHub icons based on theme
+    function updateGithubIcons(theme) {
+        const githubIcons = document.querySelectorAll('.github-icon');
+        githubIcons.forEach(icon => {
+            if (theme === 'dark') {
+                icon.src = 'images/github-mark-white.png';
+            } else {
+                icon.src = 'images/github-mark.png';
+            }
+        });
+    }
+
+    // Update GitHub stats images based on theme
+    function updateGithubStats(theme) {
+        const statsImg = document.getElementById('github-stats-img');
+        const langsImg = document.getElementById('github-langs-img');
+
+        if (theme === 'dark') {
+            // Dark theme with transparent background
+            statsImg.src = 'https://gh-stats.jake-moore.luxiouslabs.net/api?username=Jake-Moore&show_icons=true&theme=dark&hide_rank=true&hide_border=true&bg_color=00000000';
+            langsImg.src = 'https://gh-stats.jake-moore.luxiouslabs.net/api/top-langs/?username=Jake-Moore&hide=lua&layout=compact&theme=dark&hide_border=true&bg_color=00000000';
+        } else {
+            // Light theme with transparent background
+            statsImg.src = 'https://gh-stats.jake-moore.luxiouslabs.net/api?username=Jake-Moore&show_icons=true&hide_rank=true&hide_border=true&bg_color=00000000';
+            langsImg.src = 'https://gh-stats.jake-moore.luxiouslabs.net/api/top-langs/?username=Jake-Moore&hide=lua&layout=compact&hide_border=true&bg_color=00000000';
+        }
+    }
+
+    updateToggleIcon(currentTheme);
+    updateGithubIcons(currentTheme);
+    updateGithubStats(currentTheme);
+
+    // Toggle theme function
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateToggleIcon(newTheme);
+        updateGithubIcons(newTheme);
+        updateGithubStats(newTheme);
+    }
+
+    // Add click event listener
+    themeToggle.addEventListener('click', toggleTheme);
+
+    // Add keyboard support for accessibility
+    themeToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleTheme();
+        }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
