@@ -36,3 +36,7 @@ I enjoy developing scalable minecraft servers and learning how to use new techno
 ### 🔢 My Statistics
 ![My GitHub Stats](https://gh-stats.jake-moore.luxiouslabs.net/api?username=Jake-Moore&show_icons=true&theme=tokyonight#gh-dark-mode-only)
 ![Top Languages](https://gh-stats.jake-moore.luxiouslabs.net/api/top-langs/?username=Jake-Moore&hide=lua&layout=compact&theme=tokyonight#gh-dark-mode-only)
+
+### 🔗 Links
+[![Website](https://img.shields.io/badge/Website-jake--moore.dev-c464ed?style=for-the-badge&logo=google-chrome&logoColor=white)](https://jake-moore.dev/)
+[![Documentation](https://img.shields.io/badge/Documentation-docs.jake--moore.dev-7F52FF?style=for-the-badge&logo=read-the-docs&logoColor=white)](https://docs.jake-moore.dev/)
