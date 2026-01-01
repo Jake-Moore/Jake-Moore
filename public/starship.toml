@@ -1,6 +1,8 @@
+add_newline = false
+
 format = """\
-[](bg:#030B16 fg:#7DF9AA)\
-[󰀵 ](bg:#7DF9AA fg:#090c0c)\
+[](bg:bg fg:#7DF9AA)[ ](bg:#7DF9AA)\
+[󰍲 ](bg:#7DF9AA fg:#090c0c)\
 [](fg:#7DF9AA bg:#1C3A5E)\
 $time\
 [](fg:#1C3A5E bg:#3B76F0)\
@@ -9,11 +11,11 @@ $directory\
 $git_branch\
 $git_status\
 $git_metrics\
-[](fg:#06D6A0 bg:#030B16)\
+[](fg:#06D6A0 bg:#4B8BBE)\
+$python\
+[](fg:#4B8BBE bg:bg)\
 $character\
 """
-
-right_format = "$python"
 
 [directory]
 format = "[ 󰉋 $path ]($style)"
@@ -68,7 +70,7 @@ disabled = false
 
 [status]
 format = "[✗ $status ]($style)"
-style = "fg:#E84D44 bg:#030B16"
+style = "fg:#E84D44 bg:bg"
 disabled = false
 pipestatus = true
 
@@ -78,6 +80,6 @@ style = "fg:#E4E4E4 bg:#1C3A5E"
 disabled = false
 
 [python]
-format = "[](fg:#A78BFA bg:#030B16)[ 󰌠 ($virtualenv) ]($style)[](fg:#A78BFA bg:#030B16)"
-style = "fg:#E4E4E4 bg:#A78BFA"
+format = "[ 󰌠 ($virtualenv) ]($style)"
+style = "fg:#E4E4E4 bg:#4B8BBE"
 disabled = false
