@@ -11,9 +11,12 @@ $directory\
 $git_branch\
 $git_status\
 $git_metrics\
-[](fg:#06D6A0 bg:#4B8BBE)\
+[](fg:#06D6A0 bg:#CC6B00)\
 $python\
-[](fg:#4B8BBE bg:bg)\
+$java\
+$kotlin\
+$nodejs\
+[](fg:#CC6B00 bg:bg)\
 $character\
 """
 
@@ -74,12 +77,26 @@ style = "fg:#E84D44 bg:bg"
 disabled = false
 pipestatus = true
 
-[nodejs]
-format = "[ $version ]($style)"
-style = "fg:#E4E4E4 bg:#1C3A5E"
+[python]
+format = "[ 󰌠 $version ($virtualenv) ]($style)"
+style = "fg:#E4E4E4 bg:#CC6B00"
 disabled = false
 
-[python]
-format = "[ 󰌠 ($virtualenv) ]($style)"
-style = "fg:#E4E4E4 bg:#4B8BBE"
+[java]
+format = "[ 󰬷 $version ]($style)"
+style = "fg:#E4E4E4 bg:#CC6B00"
+disabled = false
+detect_extensions = ["java"]
+detect_files = ["pom.xml", "build.gradle", "build.gradle.kts"]
+
+[kotlin]
+format = "[  $version ]($style)"
+style = "fg:#E4E4E4 bg:#CC6B00"
+disabled = false
+detect_extensions = ["kt", "kts"]
+detect_files = ["build.gradle.kts"]
+
+[nodejs]
+format = "[ 󰎙 $version ]($style)"
+style = "fg:#E4E4E4 bg:#CC6B00"
 disabled = false
